@@ -1,42 +1,39 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.App{
+  margin-top: 40px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.address-checkbox{
+  margin-top: 20px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.label-class{
+  width: 30%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.submit-button{
+  margin-top: 20px;
+  right: 50%;
+  position: absolute;
 }
 
-.card {
-  padding: 2em;
+.input-component-section{
+  margin-top: 50px;
 }
 
-.read-the-docs {
-  color: #888;
+.form-section{
+  padding: 30px;
+  margin-top: 50px;
+  background-color: #efefef;
+}
+
+#root{
+  overflow-x: hidden;
+}
+
+button:focus {
+  outline: none;
+}
+
+input::-ms-reveal, input::-ms-clear {
+  display: none;
 }

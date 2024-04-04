@@ -1,12 +1,16 @@
-import { useState } from 'react'
+
+import Router from './routes/sections';
+import ThemeProvider from './theme';
+
+// import styles
 import './App.css'
 
 function App() {
 
   return (
-    <>
-      User Task Management System
-    </>
+    <ThemeProvider>
+      <Router />
+    </ThemeProvider>
   )
 }
 
