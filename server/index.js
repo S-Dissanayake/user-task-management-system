@@ -32,8 +32,8 @@ app.use((req, res, next) => {
 const task = require("./routes/task/task");
 const user = require("./routes/user/user");
 
-app.use("/api/task", task);
-app.use("/api/user", user);
+app.use("/taskService/api", task);
+app.use("/userService/api", user);
 
 app.listen(8800, ()=>{
     console.log("Connected to backend - port: 8800")

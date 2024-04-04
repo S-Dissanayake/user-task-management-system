@@ -20,7 +20,7 @@ router.post('/signup', (req, res) => {
         else{
             const id= data.insertId;
             const token = jwt.sign({id}, JWT_KEY, {expiresIn: '12h'})
-            return res.json({signup: true, msg: "User Created", token, data});
+            return res.json({signup: true, msg: "User Created", token, id});
         }
     })
 })
@@ -34,7 +34,7 @@ router.post("/login", (req, res) => {
         }
         if(data.length > 0) {
             const id= data[0].userId
-            const user = {id: data[0].userId, name: data[0].name}
+            const user = {userId: data[0].userId, name: data[0].name}
             const token = jwt.sign({id}, JWT_KEY, {expiresIn: '12h'})
             return res.json({login: true, token, user});
         }else {

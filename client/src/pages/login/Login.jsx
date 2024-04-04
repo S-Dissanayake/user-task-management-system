@@ -16,6 +16,9 @@ import Iconify from '../../components/iconify/Iconify';
 
 import { useRouter } from '../../routes/hooks';
 
+import { http_Request } from '../../utils/HTTP_Request';
+import { API_URL } from '../../shared/API_URLS';
+
 import { bgGradient } from '../../theme/css';
 
 
@@ -23,13 +26,13 @@ import { bgGradient } from '../../theme/css';
 
 const Login = () => {
   const initialFormValues = {
-    userName:"",
+    name:"",
     email:"",
     password:""
   }
 
   const initialFormErrors = {
-    userName:false, 
+    name:false, 
     email:false, 
     password:false
   }
@@ -75,11 +78,52 @@ const Login = () => {
   }
 
   const loginSubmit = () => {
-    router.push('/dashboard');
+    let loginSubmitData = {
+      email: formData.email,
+      password: formData.password
+    }
+    http_Request(
+      {
+        url: API_URL.User.POST_USER_LOGIN,
+        method: 'POST',
+        bodyData: loginSubmitData,
+      },
+      function successCallback (response) {    
+        if ( response.data.login) {
+          localStorage.setItem('jwtToken', response.data.token);
+          localStorage.setItem('user', JSON.stringify( response.data.user));
+          router.push('/dashboard');
+        }      
+      },
+      function errorCallback (error) {
+        console.log('error', error)
+      }
+    )
   }
 
   const signupSubmit = () => {
-    router.push('/dashboard');
+    let signupSubmitData = {
+      name: formData.name,
+      email: formData.email,
+      password: formData.password
+    }
+    http_Request(
+      {
+        url: API_URL.User.POST_USER_SIGNUP,
+        method: 'POST',
+        bodyData: signupSubmitData,
+      },
+      function successCallback (response) {
+        if ( response.data.signup) {
+          localStorage.setItem('jwtToken',response.data.token);
+          localStorage.setItem('user', JSON.stringify({id: response.data.id, name: signupSubmitData.name}));
+          router.push('/dashboard');
+        }        
+      },
+      function errorCallback (error) {
+        console.log('error', error)
+      }
+    )
   }
 
   const renderForm = (
@@ -89,11 +133,11 @@ const Login = () => {
           !isLoginView && 
           <TextField
             id='user_name_text_field'
-            name="userName" 
+            name="name" 
             label="User name"
-            value={formData.userName} 
+            value={formData.name} 
             onChange={(e)=>inputOnchangeHandler(e)}
-            error={formErrors.userName}
+            error={formErrors.name}
           />
         }
 
