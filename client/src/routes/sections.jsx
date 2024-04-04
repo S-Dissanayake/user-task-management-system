@@ -3,8 +3,7 @@ import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
 import DashboardLayout from '../layout/dashboard';
 
-export const Dashboard = lazy(()=> import('../pages/dashboard/Dashboard'));
-export const UserPage = lazy(()=> import('../pages/user/User'));
+export const Dashboard = lazy(()=> import('../pages/dashboard/view/Dashboard'));
 export const LoginPage = lazy(()=> import('../pages/login/Login'));
 export const Page404 = lazy(()=> import('../pages/pageNotFound/PageNotFound'))
 
@@ -27,7 +26,6 @@ export default function Router() {
       ),
       children: [
         { path: 'dashboard', element: <Dashboard />},
-        { path: 'user', element: <UserPage /> },
       ],
     },
 

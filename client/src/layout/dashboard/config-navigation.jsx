@@ -9,12 +9,6 @@ const navConfig = [
     icon: <img src={DashboardIcon}/>
   },
   {
-    title: 'user',
-    path: '/user',
-    icon: <img src={TaskListIcon}/>
-
-  },
-  {
     title: 'logout',
     path: '/',
     icon: <img src={LogoutIcon}/>

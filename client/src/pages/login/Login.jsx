@@ -86,7 +86,7 @@ const Login = () => {
     <>
       <Stack spacing={3}>
         {
-          isLoginView && 
+          !isLoginView && 
           <TextField
             id='user_name_text_field'
             name="userName" 
@@ -134,7 +134,7 @@ const Login = () => {
         onClick={()=>{formSubmitHandler()}}
         sx={{ marginTop: '2rem'}}
       >
-        {isLoginView ? 'Sign In' : 'Login'}
+        {isLoginView ? 'Login' : 'Sign In' }
       </LoadingButton>
     </>
   );
@@ -169,13 +169,13 @@ const Login = () => {
           <Typography variant="h4" sx={{textAlign: 'center'}}>Task Manager</Typography>
 
           <Typography variant="body2" sx={{ mt: 2, mb: 4 , textAlign: 'center'}}>
-            {isLoginView ? 'Already have an account?': 'Don’t have an account?'}
+            {isLoginView ? 'Don’t have an account?' : 'Already have an account?'}
             <Button 
               variant="subtitle2" 
               sx={{ ml: 0.5}}
               onClick={()=>{formViewHandler()}}
             >
-              {isLoginView ? 'Login' : 'Join here' }
+              {isLoginView ? 'Join here' : 'Login' }
             </Button>
           </Typography>
 
