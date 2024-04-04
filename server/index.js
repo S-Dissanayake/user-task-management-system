@@ -2,7 +2,6 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const HOST = process.env.HOST ;
@@ -25,23 +24,17 @@ const db = mysql.createConnection({
     database: DATABASE
 })
 
-function verifyToken(req,res,next){
-    const bearerHeader=req.headers["authorization"];
-    if(typeof bearerHeader!=='undefined'){
-        const bearer = bearerHeader.split(' ');
-        const bearerToken=bearer[1];
-        req.token=bearerToken;
-        next()
-    }else {
-        res.sendStatus(403);
-    }
-}
+app.use((req, res, next) => {
+    req.db = db;
+    next();
+});
 
-app.get("/", (req, res)=> {
-    res.json("this is from backend  /")
-})
+const task = require("./routes/task/task");
+const user = require("./routes/user/user");
 
+app.use("/api/task", task);
+app.use("/api/user", user);
 
 app.listen(8800, ()=>{
-    console.log("Connected to backend !")
+    console.log("Connected to backend - port: 8800")
 })
