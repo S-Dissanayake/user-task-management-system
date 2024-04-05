@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
@@ -7,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
 import Label from '../../components/label';
+import Timeline from '../../components/timeline/TimeLine';
 
 import ViewSvg from "../../assets/icons/view.svg";
 import EditSvg from "../../assets/icons/edit.svg";
@@ -21,8 +23,24 @@ export default function UserTableRow({
   handleActionClick,
 }) {
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+  const open = Boolean(anchorEl);
+
   return (
     <>
+      <Timeline 
+        isPopoverOpen={open}
+        anchorEl={anchorEl}
+        handlePopoverClose={handlePopoverClose}
+      />
       <TableRow>
         <TableCell component="th" scope="row" padding="none" >
             <Typography variant="subtitle2" noWrap sx={{marginLeft: "20px"}}>
@@ -30,20 +48,31 @@ export default function UserTableRow({
             </Typography>
         </TableCell>
 
-        <TableCell align="center">
-          <Typography variant="body2" noWrap>
+        <TableCell>
+          <Label 
+            variant={'outlined'}
+            color={priority === "Low" ? 'info' : priority === "Medium" ? 'warning' :  'error'} 
+          >
             {priority}
-          </Typography>
+          </Label>
         </TableCell>
 
         <TableCell>
-          <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
+          <Label 
+            color={status === "New" ? 'secondary' : status === "In Progress" ? 'primary' :  'success'}
+            aria-owns={open ? 'mouse-over-popover' : undefined}
+            aria-haspopup="true"
+            onMouseEnter={handlePopoverOpen}
+            onMouseLeave={handlePopoverClose}            
+          >
+            {status}
+          </Label>
         </TableCell>
 
         <TableCell align="right">
         <Tooltip title="View">
             <IconButton onClick={()=>{handleActionClick("VIEW")}} sx={{backgroundColor: '#e0e0e0', ":hover":{backgroundColor: '#c9c7c7'}, marginRight: "15px"}}>
-              <img src={ViewSvg} alt='view' width="20px"/>  
+              <img src={ViewSvg} alt='view' width="20px" />  
             </IconButton>
           </Tooltip>
           <Tooltip title="Edit">
