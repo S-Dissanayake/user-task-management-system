@@ -26,6 +26,7 @@ const TaskFormDialog = (props) => {
     handleCloseFormDIalog,
     formDialogViewMode,
     handleRefreshTaskList,
+    setSnackData,
   } = props;
 
   const initialFormValues = {
@@ -98,10 +99,11 @@ const TaskFormDialog = (props) => {
           setFormErrors(initialFormErrors);
           handleRefreshTaskList();
           handleCloseFormDIalog();
+          setSnackData({ text: "New task created successfully", variant: "success" })
         }      
       },
       function errorCallback (error) {
-        console.log('error', error)
+        setSnackData({ text: "Error on new task creation !", variant: "error" })
       }
     )
   }
@@ -209,4 +211,5 @@ TaskFormDialog.propTypes = {
   handleCloseFormDIalog: PropTypes.func,
   formDialogViewMode: PropTypes.string,
   handleRefreshTaskList: PropTypes.func,
+  setSnackData: PropTypes.func,
 };

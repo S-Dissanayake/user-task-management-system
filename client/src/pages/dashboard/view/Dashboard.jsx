@@ -12,6 +12,7 @@ import TablePagination from '@mui/material/TablePagination';
 
 import Iconify from '../../../components/iconify/Iconify';
 import AlertDialog from '../../../components/alertDialog/AlertDialog';
+import Snackbar from '../../../components/snackbar/Snackbar';
 
 import TableNoData from '../table-no-data';
 import TableRow from '../table-row';
@@ -32,6 +33,7 @@ const Dashboard = () => {
   const [page, setPage] = useState(0);
   const [selected, setSelected] = useState({});
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const[snackData, setSnackData]= useState({text: "", variant: ""});
 
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
   const [formDialogViewMode, setFormDialogViewMode] = useState("NEW");
@@ -98,75 +100,84 @@ const Dashboard = () => {
     )
   }
 
+  const handleSnackReset = () => {
+    setSnackData({text: "", variant: ""})
+  }
 
   return (
-    <Container>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} mt={4}>
-        <Typography variant="h4">Task List</Typography>
-
-        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill"/>} onClick={()=> {HandleNewTaskOnClick()}}>
-          New Task
-        </Button>
-      </Stack>
-
-      <Card>
-          <TableContainer sx={{ overflow: 'unset' }}>
-            <Table sx={{ minWidth: 800 }}>
-              <TableHead
-                headLabel={[
-                  { id: 'taskTitle', label: 'Task Title' },
-                  { id: 'priority', label: 'Priority', align: 'center' },
-                  { id: 'status', label: 'Status' },
-                  { id: '' },
-                ]}
-              />
-              <TableBody>
-                {taskList
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => (
-                    <TableRow
-                      key={row.id}
-                      taskTitle={row.title}
-                      status={row.status}
-                      priority={row.priority}
-                      handleActionClick={(actionType) => handleActionClick(actionType, row)}
-                    />
-                  ))}
-
-                <TableEmptyRows
-                  height={77}
-                  emptyRows={emptyRows(page, rowsPerPage, taskList.length)}
-                />
-
-                {notFound && <TableNoData />}
-              </TableBody>
-            </Table>
-          </TableContainer>
-
-        <TablePagination
-          page={page}
-          component="div"
-          count={taskList.length}
-          rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          rowsPerPageOptions={[5, 10, 25]}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Card>
-
+    <>
+      <Snackbar 
+        snackText={snackData.text} 
+        snackVariant={snackData.variant} 
+        handleReset={()=>handleSnackReset()} 
+      />
       <TaskFormDialog
         isFormDialogOpen={isFormDialogOpen}
         handleCloseFormDIalog={handleCloseFormDIalog}
         formDialogViewMode={formDialogViewMode}
         handleRefreshTaskList={handleRefreshTaskList}
+        setSnackData={setSnackData}
       />
       <AlertDialog
         isAlertDialogOpen={isAlertDialogOpen}
         handleCloseAlertDIalog={handleCloseAlertDIalog}
         alertDialogContentText={"Do you want delete this task ?"}
         handleSubmitAltertDialog={()=> {}}
+        setSnackData={setSnackData}
       />
-    </Container>
+      <Container>
+        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} mt={4}>
+          <Typography variant="h4">Task List</Typography>
+          <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill"/>} onClick={()=> {HandleNewTaskOnClick()}}>
+            New Task
+          </Button>
+        </Stack>
+        <Card>
+            <TableContainer sx={{ overflow: 'unset' }}>
+              <Table sx={{ minWidth: 800 }}>
+                <TableHead
+                  headLabel={[
+                    { id: 'taskTitle', label: 'Task Title' },
+                    { id: 'priority', label: 'Priority', align: 'center' },
+                    { id: 'status', label: 'Status' },
+                    { id: '' },
+                  ]}
+                />
+                <TableBody>
+                  {taskList
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => (
+                      <TableRow
+                        key={row.id}
+                        taskTitle={row.title}
+                        status={row.status}
+                        priority={row.priority}
+                        handleActionClick={(actionType) => handleActionClick(actionType, row)}
+                      />
+                    ))}
+
+                  <TableEmptyRows
+                    height={77}
+                    emptyRows={emptyRows(page, rowsPerPage, taskList.length)}
+                  />
+
+                  {notFound && <TableNoData />}
+                </TableBody>
+              </Table>
+            </TableContainer>
+
+          <TablePagination
+            page={page}
+            component="div"
+            count={taskList.length}
+            rowsPerPage={rowsPerPage}
+            onPageChange={handleChangePage}
+            rowsPerPageOptions={[5, 10, 25]}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Card>
+      </Container>
+    </>    
   );
 }
 
