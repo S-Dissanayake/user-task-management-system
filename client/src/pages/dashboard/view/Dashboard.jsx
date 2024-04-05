@@ -52,7 +52,7 @@ const Dashboard = () => {
   
   const handleActionClick = (actionType, rowData) => {
     setSelected(rowData);
-    if (actionType === "NEW" || actionType === "EDIT" || actionType === "VIEW") {
+    if (actionType === "EDIT" || actionType === "VIEW") {
       setFormDialogViewMode(actionType);      
       setIsFormDialogOpen(true);
     } else if (actionType === "DELETE") {
@@ -93,7 +93,14 @@ const Dashboard = () => {
       },
       function successCallback (response) {    
         if ( response.data) {
-          setTaskList(response.data)
+          let taskListFromResponse = response.data;
+          let modifiedTaskList = taskListFromResponse?.map && taskListFromResponse.map((singleItem) => {
+            return {
+              ...(singleItem || {}),
+              statusHistory: JSON.parse(singleItem?.statusHistory)
+            }
+          });
+          setTaskList(modifiedTaskList);
         }      
       },
       function errorCallback (error) {
@@ -172,6 +179,7 @@ const Dashboard = () => {
                         taskTitle={row.title}
                         status={row.status}
                         priority={row.priority}
+                        statusHistory={row.statusHistory}
                         handleActionClick={(actionType) => handleActionClick(actionType, row)}
                       />
                     ))}

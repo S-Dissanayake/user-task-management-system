@@ -21,6 +21,7 @@ export default function UserTableRow({
   priority,
   status,
   handleActionClick,
+  statusHistory
 }) {
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -40,6 +41,7 @@ export default function UserTableRow({
         isPopoverOpen={open}
         anchorEl={anchorEl}
         handlePopoverClose={handlePopoverClose}
+        statusHistory={statusHistory}
       />
       <TableRow>
         <TableCell component="th" scope="row" padding="none" >
@@ -96,4 +98,5 @@ UserTableRow.propTypes = {
   priority: PropTypes.string,
   taskTitle: PropTypes.string,
   status: PropTypes.string,
+  statusHistory: PropTypes.object,
 };

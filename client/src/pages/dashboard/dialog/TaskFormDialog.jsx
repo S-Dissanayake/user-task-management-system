@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import moment from 'moment';
+
 import { useState, useEffect } from 'react';
 
 import Button from '@mui/material/Button';
@@ -69,27 +71,34 @@ const TaskFormDialog = (props) => {
       label: 'Completed',
     }
   ]
+ 
+  const StatusTypesForCompleted = [{ value: 'Completed', label: 'Completed'}]
+  const StatusTypesForInProgress = [{value: 'In Progress', label: 'In Progress'},{ value: 'Completed', label: 'Completed'}]
 
   const userDetails = JSON.parse(localStorage.getItem("user"));
 
   const[formValues, setFormValues]= useState(initialFormValues);
   const[formErrors, setFormErrors]= useState(initialFormErrors);
+  const[statusList, setStatusList]= useState(StatusTypes);
 
   useEffect(() => {
     if (isFormDialogOpen && (formDialogViewMode === "VIEW" || formDialogViewMode === "EDIT" )) {
+      let tempStatusList = (selectedTask?.status === 'In Progress') ? StatusTypesForInProgress : ((selectedTask?.status === 'Completed') ? StatusTypesForCompleted : StatusTypes);
       setFormValues({
         title: selectedTask?.title,
         priority: selectedTask?.priority,
         status: selectedTask?.status,
       })
-    } else {
+      setStatusList(tempStatusList);
+    } else if (isFormDialogOpen && (formDialogViewMode === "NEW")) {
       setFormValues(initialFormValues);
+      setStatusList(StatusTypes);
     }
   }, [isFormDialogOpen])
   
   const handleFormReset = () => {
-    setFormValues(initialFormValues);
     setFormErrors(initialFormErrors);
+    setFormValues(initialFormValues);
   }
 
   const handleFormValues =(e)=> {
@@ -98,11 +107,13 @@ const TaskFormDialog = (props) => {
   }
 
   const handleAddNewTask = () => {
+    let modifiedDateAndTime = `${(moment(new Date()).format('YYYY-MM-DD') + " / " + moment(new Date()).format('hh:mm A'))}`;
     let newTaskSubmitData = {
       userId: userDetails?.userId,
       title: formValues?.title,
       priority: formValues?.priority,
       status: formValues?.status,
+      statusHistory: JSON.stringify({"New": modifiedDateAndTime})
     }
     http_Request(
       {
@@ -112,9 +123,9 @@ const TaskFormDialog = (props) => {
       },
       function successCallback (response) {    
         if ( response.data) {
-          handleFormReset();
           handleRefreshTaskList();
           handleCloseFormDIalog();
+          handleFormReset();
           setSnackData({ text: "New task created successfully", variant: "success" })
         }      
       },
@@ -125,10 +136,24 @@ const TaskFormDialog = (props) => {
   }
 
   const handleUpdateTask = () => {
+    let modifiedDateAndTime = `${(moment(new Date()).format('YYYY-MM-DD') + " / " + moment(new Date()).format('hh:mm A'))}`;
+    let newStatusHistory = selectedTask?.statusHistory;
+    if ((selectedTask?.status !== formValues.status) && formValues.status=== "In Progress") {
+      newStatusHistory = {
+        ...(newStatusHistory || {}),
+        "In Progress": modifiedDateAndTime,
+      }
+    } else if ((selectedTask?.status !== formValues.status) && formValues.status=== "Completed") {
+      newStatusHistory = {
+        ...(newStatusHistory || {}),
+        "Completed": modifiedDateAndTime,
+      }
+    }
     let updateTaskSubmitData = {
       title: formValues?.title,
       priority: formValues?.priority,
       status: formValues?.status,
+      statusHistory: JSON.stringify(newStatusHistory)
     }
     http_Request(
       {
@@ -138,9 +163,9 @@ const TaskFormDialog = (props) => {
       },
       function successCallback (response) {    
         if ( response.data) {
-          handleFormReset();
           handleRefreshTaskList();
           handleCloseFormDIalog();
+          handleFormReset();
           setSnackData({ text: "Task updated successfully", variant: "success" })
         }      
       },
@@ -218,11 +243,12 @@ const TaskFormDialog = (props) => {
                 error={formErrors.status}
                 disabled={formDialogViewMode === "VIEW" || formDialogViewMode === "NEW"}
               >
-                {StatusTypes.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
+                {
+                  statusList.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>))
+                }
               </TextField> 
             </Grid>
           </Grid>        

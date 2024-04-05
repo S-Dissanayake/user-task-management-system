@@ -1,4 +1,5 @@
 import * as React from 'react';
+import moment from 'moment';
 
 import Popover from '@mui/material/Popover';
 import Timeline from '@mui/lab/Timeline';
@@ -17,6 +18,7 @@ const ColoredTimeline = (props) => {
     isPopoverOpen,
     anchorEl,
     handlePopoverClose,
+    statusHistory,
   } = props;
 
   return (
@@ -44,37 +46,43 @@ const ColoredTimeline = (props) => {
             minWidth: '500px'
           }}
         >
-          <TimelineItem>
-            <TimelineOppositeContent color="textSecondary">
-              2022-02-01 09:30 am
-            </TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineDot color='secondary'/>
-              <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent>New</TimelineContent>
-          </TimelineItem>
+    
+          { statusHistory["New"] &&
+            <TimelineItem>
+              <TimelineOppositeContent color="textSecondary">
+                {statusHistory["New"]}
+              </TimelineOppositeContent>
+              <TimelineSeparator>
+                <TimelineDot color='secondary'/>
+                <TimelineConnector />
+              </TimelineSeparator>
+              <TimelineContent>New</TimelineContent>
+            </TimelineItem>
+          }
 
-          <TimelineItem>
-            <TimelineOppositeContent color="textSecondary">
-            2022-02-01 11:30 am
-            </TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineDot color="primary"/>
-              <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent>In Progress</TimelineContent>
-          </TimelineItem>
-
-          <TimelineItem>
-            <TimelineOppositeContent color="textSecondary">
-            2022-02-02 09:00 am
-            </TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineDot color="success"/>
-            </TimelineSeparator>
-            <TimelineContent>Completed</TimelineContent>
-          </TimelineItem>
+          { statusHistory["In Progress"] &&
+            <TimelineItem>
+              <TimelineOppositeContent color="textSecondary">
+                {statusHistory["In Progress"]}
+              </TimelineOppositeContent>
+              <TimelineSeparator>
+                <TimelineDot color="primary"/>
+                <TimelineConnector />
+              </TimelineSeparator>
+              <TimelineContent>In Progress</TimelineContent>
+            </TimelineItem>
+          }
+          { statusHistory["Completed"] &&
+            <TimelineItem>
+              <TimelineOppositeContent color="textSecondary">
+                {statusHistory["Completed"]}
+              </TimelineOppositeContent>
+              <TimelineSeparator>
+                <TimelineDot color="success"/>
+              </TimelineSeparator>
+              <TimelineContent>Completed</TimelineContent>
+            </TimelineItem>
+          }
 
         </Timeline>
       </Popover>

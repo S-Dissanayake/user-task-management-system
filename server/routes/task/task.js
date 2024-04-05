@@ -29,12 +29,13 @@ require("dotenv").config();
 
     // API for add task
     router.put("/addNewTask", verifyToken, (req, res) => {
-        const sql = "INSERT INTO task (userId, title, priority, status) VALUES (?)";
+        const sql = "INSERT INTO task (userId, title, priority, status, statusHistory) VALUES (?)";
         const values = [
             req.body.userId,
             req.body.title,
             req.body.priority,
             req.body.status,
+            req.body.statusHistory
         ]
         req.db.query(sql, [values], (err, data) => {
             if(err){
@@ -61,11 +62,12 @@ require("dotenv").config();
     // API for UPDATE a task
     router.put("/updateTaskbyId/:taskId",verifyToken, (req, res) => {
         const taskId = req.params.taskId;
-        const sql = "UPDATE task SET `title`= ?, `priority` = ?, `status` = ? WHERE (`taskId` = ?);";
+        const sql = "UPDATE task SET `title`= ?, `priority` = ?, `status` = ?, `statusHistory` = ? WHERE (`taskId` = ?);";
         const values = [
             req.body.title,
             req.body.priority,
             req.body.status,
+            req.body.statusHistory,
         ]
         req.db.query(sql, [...values, taskId], (err, data) => {
             if (err) {
