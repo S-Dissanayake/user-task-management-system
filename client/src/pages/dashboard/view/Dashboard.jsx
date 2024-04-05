@@ -13,6 +13,11 @@ import TablePagination from '@mui/material/TablePagination';
 import Iconify from '../../../components/iconify/Iconify';
 import AlertDialog from '../../../components/alertDialog/AlertDialog';
 import Snackbar from '../../../components/snackbar/Snackbar';
+import { useRouter } from '../../../routes/hooks';
+import TaskFormDialog from '../dialog/TaskFormDialog';
+
+import { http_Request } from '../../../utils/HTTP_Request';
+import { API_URL } from '../../../shared/API_URLS';
 
 import TableNoData from '../table-no-data';
 import TableRow from '../table-row';
@@ -20,14 +25,11 @@ import TableHead from '../table-head';
 import TableEmptyRows from '../table-empty-rows';
 import { emptyRows } from '../utils';
 
-import TaskFormDialog from '../dialog/TaskFormDialog';
-
-import { http_Request } from '../../../utils/HTTP_Request';
-import { API_URL } from '../../../shared/API_URLS';
-
 // ----------------------------------------------------------------------
 
 const Dashboard = () => {
+
+  const router = useRouter();
 
   const [taskList, setTaskList] = useState([]);
   const [page, setPage] = useState(0);
@@ -41,7 +43,11 @@ const Dashboard = () => {
   const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
 
   useEffect(() => {
-    fetchTaskListByUserId();
+    if (localStorage.getItem('jwtToken')) {
+      fetchTaskListByUserId();      
+    } else {
+      router.push('/');
+    }
   }, [])
   
   const handleActionClick = (actionType, rowData) => {
@@ -152,9 +158,9 @@ const Dashboard = () => {
                 <TableHead
                   headLabel={[
                     { id: 'taskTitle', label: 'Task Title' },
-                    { id: 'priority', label: 'Priority', align: 'center' },
+                    { id: 'priority', label: 'Priority' },
                     { id: 'status', label: 'Status' },
-                    { id: '' },
+                    { id: 'actions', label: 'Actions', align: 'right'},
                   ]}
                 />
                 <TableBody>
