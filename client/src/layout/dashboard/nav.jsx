@@ -95,6 +95,11 @@ function NavItem({ item }) {
 
   const active = item.path === pathname;
 
+  const handleLocalStorageClean = () => {
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('user');
+  }
+
   return (
     <ListItemButton
       component={RouterLink}
@@ -114,6 +119,7 @@ function NavItem({ item }) {
           },
         }),
       }}
+      onClick={()=>{(item.title === 'logout') && handleLocalStorageClean()}}
     >
       <Box component="span" sx={{ width: 24, height: 24, mr: 2 }}>
         {item.icon}
