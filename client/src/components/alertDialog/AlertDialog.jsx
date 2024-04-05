@@ -6,6 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
+import Typography from '@mui/material/Typography';
 
 import "./alertDialog.css";
 
@@ -36,9 +37,9 @@ const AlertDialog = (props) => {
       >
         <DialogTitle>{alertDialogTitle}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            {alertDialogContentText}
-          </DialogContentText>
+            <Typography className='msg-typo'>
+              {alertDialogContentText}
+            </Typography>        
         </DialogContent>
         <DialogActions className='dialog-action'>
           <Button className='submit-btn' onClick={()=>handleSubmitAltertDialog()}>Yes</Button>

@@ -3,13 +3,13 @@
 }
 
 .submit-btn {
-    background-color: #50a1e2;
+    background-color: #f76e6e;
     color :#ffffff;
     margin-right: 10px;
 }
 
 .submit-btn:hover {
-    background-color: #409de9;
+    background-color: #fc3a3a;
     color :#ffffff;
     margin-right: 10px;
 }
@@ -20,6 +20,10 @@
 }
 
 .cancel-btn:hover {
-    background-color: rgb(206, 206, 206);
+    background-color: rgb(179, 179, 179);
     color :#424242
+}
+
+.msg-typo {
+    font-weight: 600 !important;
 }

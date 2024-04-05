@@ -11,13 +11,11 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
-import Slide from '@mui/material/Slide';
 
 import { http_Request } from '../../../utils/HTTP_Request';
 import { API_URL } from '../../../shared/API_URLS';
 
-import './taskFormDialog.css'
-
+import './taskFormDialog.css';
 
 const TaskFormDialog = (props) => {
 
@@ -227,8 +225,7 @@ const TaskFormDialog = (props) => {
                 ))}
               </TextField> 
             </Grid>
-          </Grid>
-          
+          </Grid>        
 
         </DialogContent>
         <DialogActions>
