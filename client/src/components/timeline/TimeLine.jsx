@@ -54,7 +54,7 @@ const ColoredTimeline = (props) => {
               </TimelineOppositeContent>
               <TimelineSeparator>
                 <TimelineDot color='secondary'/>
-                <TimelineConnector />
+                {(statusHistory["In Progress"] || statusHistory["Completed"]) && <TimelineConnector />}
               </TimelineSeparator>
               <TimelineContent>New</TimelineContent>
             </TimelineItem>
@@ -67,7 +67,7 @@ const ColoredTimeline = (props) => {
               </TimelineOppositeContent>
               <TimelineSeparator>
                 <TimelineDot color="primary"/>
-                <TimelineConnector />
+                {statusHistory["Completed"] && <TimelineConnector />}
               </TimelineSeparator>
               <TimelineContent>In Progress</TimelineContent>
             </TimelineItem>
