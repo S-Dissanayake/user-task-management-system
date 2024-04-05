@@ -44,16 +44,14 @@ const Dashboard = () => {
     fetchTaskListByUserId();
   }, [])
   
-
   const handleActionClick = (actionType, rowData) => {
     setSelected(rowData);
-    if (actionType === "NEW" || actionType === "EDIT") {
+    if (actionType === "NEW" || actionType === "EDIT" || actionType === "VIEW") {
       setFormDialogViewMode(actionType);      
       setIsFormDialogOpen(true);
     } else if (actionType === "DELETE") {
       setIsAlertDialogOpen(true);
     }
-
   };
 
   const HandleNewTaskOnClick = () => {

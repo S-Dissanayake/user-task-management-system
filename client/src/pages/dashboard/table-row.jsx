@@ -1,19 +1,16 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
-import Popover from '@mui/material/Popover';
 import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
-import MenuItem from '@mui/material/MenuItem';
 import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 
 import Label from '../../components/label';
-import Iconify from '../../components/iconify/Iconify';
-import { Tooltip } from '@mui/material';
+
+import ViewSvg from "../../assets/icons/view.svg";
+import EditSvg from "../../assets/icons/edit.svg";
+import DeleteSvg from "../../assets/icons/delete.svg";
 
 // ----------------------------------------------------------------------
 
@@ -44,14 +41,19 @@ export default function UserTableRow({
         </TableCell>
 
         <TableCell align="right">
+        <Tooltip title="View">
+            <IconButton onClick={()=>{handleActionClick("VIEW")}} sx={{backgroundColor: '#e0e0e0', ":hover":{backgroundColor: '#c9c7c7'}, marginRight: "15px"}}>
+              <img src={ViewSvg} alt='view' width="20px"/>  
+            </IconButton>
+          </Tooltip>
           <Tooltip title="Edit">
-            <IconButton onClick={()=>{handleActionClick("EDIT")}} sx={{":hover":{backgroundColor: '#99c6fc'}, marginRight: "10px"}}>
-              <Iconify icon="mdi:note-edit"  />     
+            <IconButton onClick={()=>{handleActionClick("EDIT")}} sx={{backgroundColor: '#b7d8f7', ":hover":{backgroundColor: '#93c8f9'}, marginRight: "15px"}}>
+              <img src={EditSvg} alt='edit' width="20px"/>    
             </IconButton>
           </Tooltip>
           <Tooltip title="Delete">
-            <IconButton onClick={()=>{handleActionClick("DELETE")}} sx={{":hover": {backgroundColor: '#f9a495'}}}>
-              <Iconify icon="bxs:trash" />
+            <IconButton onClick={()=>{handleActionClick("DELETE")}} sx={{backgroundColor: '#fcbdbd', ":hover":{backgroundColor: '#f78f8f'}}}>
+              <img src={DeleteSvg} alt='delete' width="20px"/>
             </IconButton>
           </Tooltip>
         </TableCell>
