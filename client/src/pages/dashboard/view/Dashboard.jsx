@@ -40,8 +40,6 @@ const Dashboard = () => {
 
   const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
 
-  const notFound = (taskList.length === 0) ? true : false;
-
   useEffect(() => {
     fetchTaskListByUserId();
   }, [])
@@ -177,7 +175,7 @@ const Dashboard = () => {
                     emptyRows={emptyRows(page, rowsPerPage, taskList.length)}
                   />
 
-                  {notFound && <TableNoData />}
+                  {(taskList.length === 0) && <TableNoData />}
                 </TableBody>
               </Table>
             </TableContainer>

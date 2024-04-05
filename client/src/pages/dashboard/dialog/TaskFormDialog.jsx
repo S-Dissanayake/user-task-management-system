@@ -72,6 +72,8 @@ const TaskFormDialog = (props) => {
     }
   ]
 
+  const userDetails = JSON.parse(localStorage.getItem("user"));
+
   const[formValues, setFormValues]= useState(initialFormValues);
   const[formErrors, setFormErrors]= useState(initialFormErrors);
 
@@ -87,6 +89,10 @@ const TaskFormDialog = (props) => {
     }
   }, [isFormDialogOpen])
   
+  const handleFormReset = () => {
+    setFormValues(initialFormValues);
+    setFormErrors(initialFormErrors);
+  }
 
   const handleFormValues =(e)=> {
     setFormValues({...formValues, [e.target.name]: e.target.value});
@@ -94,7 +100,6 @@ const TaskFormDialog = (props) => {
   }
 
   const handleAddNewTask = () => {
-    let userDetails = JSON.parse(localStorage.getItem("user"));
     let newTaskSubmitData = {
       userId: userDetails?.userId,
       title: formValues?.title,
@@ -121,13 +126,30 @@ const TaskFormDialog = (props) => {
     )
   }
 
-  const handleFormReset = () => {
-    setFormValues(initialFormValues);
-    setFormErrors(initialFormErrors);
-  }
-
   const handleUpdateTask = () => {
-    
+    let updateTaskSubmitData = {
+      title: formValues?.title,
+      priority: formValues?.priority,
+      status: formValues?.status,
+    }
+    http_Request(
+      {
+        url: API_URL.Task.PUT_UPDATE_TASK_BY_ID.replace("{taskId}", selectedTask?.taskId),
+        method: 'PUT',
+        bodyData: updateTaskSubmitData,
+      },
+      function successCallback (response) {    
+        if ( response.data) {
+          handleFormReset();
+          handleRefreshTaskList();
+          handleCloseFormDIalog();
+          setSnackData({ text: "Task updated successfully", variant: "success" })
+        }      
+      },
+      function errorCallback (error) {
+        setSnackData({ text: "Error on task update !", variant: "error" })
+      }
+    )
   }
 
   return (

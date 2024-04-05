@@ -59,30 +59,19 @@ require("dotenv").config();
     })
 
     // API for UPDATE a task
-    router.put("/updateTask/:id",verifyToken, (req, res) => {
-        jwt.verify(req.token,'aquaExpert',(err,authData)=> {
-            if(err){
-                res.sendStatus(403);
-            }else {
-                const productId = req.params.id;
-                const sql = "UPDATE aquaexperts_db.product SET `name`= ?, `category` = ?, `price` = ?, `oldPrice` = ?, `description` = ?, `imageUrl` = ?, `createdDate` = ?, `latestUpdatedDate` = ?, `favorite` = ?, `sale` = ?, `outOfStock` = ? WHERE (`id` = ?);";
-                const values = [
-                    req.body.name,
-                    req.body.category,
-                    req.body.price,
-                    req.body.oldPrice,
-                    req.body.description,
-                    req.body.imageUrl,
-                    req.body.createdDate,
-                    req.body.latestUpdatedDate,
-                    req.body.favorite,
-                    req.body.sale,
-                    req.body.outOfStock
-                ]
-                db.query(sql, [...values, productId], (err, data) => {
-                if (err) return res.send(err);
+    router.put("/updateTaskbyId/:taskId",verifyToken, (req, res) => {
+        const taskId = req.params.taskId;
+        const sql = "UPDATE task SET `title`= ?, `priority` = ?, `status` = ? WHERE (`taskId` = ?);";
+        const values = [
+            req.body.title,
+            req.body.priority,
+            req.body.status,
+        ]
+        req.db.query(sql, [...values, taskId], (err, data) => {
+            if (err) {
+                return res.send(err);
+            } else {
                 return res.json(data);
-                });
             }
         })
     });
