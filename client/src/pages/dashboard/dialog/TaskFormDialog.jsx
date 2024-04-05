@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -27,6 +27,7 @@ const TaskFormDialog = (props) => {
     formDialogViewMode,
     handleRefreshTaskList,
     setSnackData,
+    selectedTask,
   } = props;
 
   const initialFormValues = {
@@ -74,6 +75,19 @@ const TaskFormDialog = (props) => {
   const[formValues, setFormValues]= useState(initialFormValues);
   const[formErrors, setFormErrors]= useState(initialFormErrors);
 
+  useEffect(() => {
+    if (isFormDialogOpen && (formDialogViewMode === "VIEW" || formDialogViewMode === "EDIT" )) {
+      setFormValues({
+        title: selectedTask?.title,
+        priority: selectedTask?.priority,
+        status: selectedTask?.status,
+      })
+    } else {
+      setFormValues(initialFormValues);
+    }
+  }, [isFormDialogOpen])
+  
+
   const handleFormValues =(e)=> {
     setFormValues({...formValues, [e.target.name]: e.target.value});
     setFormErrors({...formErrors, [e.target.name]: false});
@@ -95,8 +109,7 @@ const TaskFormDialog = (props) => {
       },
       function successCallback (response) {    
         if ( response.data) {
-          setFormValues(initialFormValues);
-          setFormErrors(initialFormErrors);
+          handleFormReset();
           handleRefreshTaskList();
           handleCloseFormDIalog();
           setSnackData({ text: "New task created successfully", variant: "success" })
@@ -106,6 +119,11 @@ const TaskFormDialog = (props) => {
         setSnackData({ text: "Error on new task creation !", variant: "error" })
       }
     )
+  }
+
+  const handleFormReset = () => {
+    setFormValues(initialFormValues);
+    setFormErrors(initialFormErrors);
   }
 
   const handleUpdateTask = () => {
@@ -134,12 +152,13 @@ const TaskFormDialog = (props) => {
               </p>
               <TextField 
                 name='title'
-                id="outlined-basic" 
+                id="task-title" 
                 fullWidth 
                 variant="outlined" 
                 value={formValues?.title}
                 onChange={(e)=> {handleFormValues(e)}}
                 error={formErrors.title}
+                disabled={formDialogViewMode === "VIEW"}
               /> 
             </Grid>
             <Grid container item xs={12} md={4} direction='column' sx={{paddingRight: "25px"}}>
@@ -155,6 +174,7 @@ const TaskFormDialog = (props) => {
                 value={formValues?.priority}
                 onChange={(e)=> {handleFormValues(e)}}
                 error={formErrors.priority}
+                disabled={formDialogViewMode === "VIEW"}
               >
                 {PriorityTypes.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -176,6 +196,7 @@ const TaskFormDialog = (props) => {
                 value={formValues?.status}
                 onChange={(e)=> {handleFormValues(e)}}
                 error={formErrors.status}
+                disabled={formDialogViewMode === "VIEW" || formDialogViewMode === "NEW"}
               >
                 {StatusTypes.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -195,7 +216,7 @@ const TaskFormDialog = (props) => {
               : formDialogViewMode === "EDIT" ? <Button onClick={()=> {handleUpdateTask()}} className='form-update-btn'>Update</Button>
               : <></>
             }
-            <Button className='form-cancel-btn' onClick={()=> {handleCloseFormDIalog()}}>Cancel</Button>
+            <Button className='form-cancel-btn' onClick={()=> {handleCloseFormDIalog(); handleFormReset()}}>Cancel</Button>
           </Box>
           
         </DialogActions>
@@ -212,4 +233,5 @@ TaskFormDialog.propTypes = {
   formDialogViewMode: PropTypes.string,
   handleRefreshTaskList: PropTypes.func,
   setSnackData: PropTypes.func,
+  selectedTask: PropTypes.object,
 };

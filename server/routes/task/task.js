@@ -47,22 +47,15 @@ require("dotenv").config();
     })
 
     // API for DELETE a task from DB
-    router.delete("/deleteTask/:id",verifyToken,(req, res) => {
-        jwt.verify(req.token,'aquaExpert',(err,authData)=> {
-            if(err){
-                res.sendStatus(403);
-            }else {
-                const sql = "DELETE FROM aquaexperts_db.product WHERE id = ?";
-                const productId = req.params.id;
-
-                db.query(sql,[productId], (err, data) => {
-                    if (err) {
-                        return res.json(err);
-                    }else{
-                        return res.json(data);
-                }})
-            }
-        })  
+    router.delete("/deleteTaskbyId/:taskId",verifyToken,(req, res) => {
+        const sql = "DELETE FROM task WHERE taskId = ?";
+        const taskId = req.params.taskId;
+        req.db.query(sql, [taskId], (err, data) => {
+            if (err) {
+                return res.json(err);
+            }else{
+                return res.json(data);
+        }})
     })
 
     // API for UPDATE a task

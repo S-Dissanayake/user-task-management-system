@@ -33,7 +33,7 @@ const Dashboard = () => {
   const [page, setPage] = useState(0);
   const [selected, setSelected] = useState({});
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const[snackData, setSnackData]= useState({text: "", variant: ""});
+  const [snackData, setSnackData]= useState({text: "", variant: ""});
 
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
   const [formDialogViewMode, setFormDialogViewMode] = useState("NEW");
@@ -72,14 +72,12 @@ const Dashboard = () => {
 
   const handleCloseFormDIalog = () => {
     setIsFormDialogOpen(false);
+    setSelected({});
   }
 
   const handleCloseAlertDIalog = () => {
     setIsAlertDialogOpen(false);
-  }
-
-  const handleRefreshTaskList = () => {
-    fetchTaskListByUserId();
+    setSelected({});
   }
 
   const fetchTaskListByUserId = () => {
@@ -99,6 +97,23 @@ const Dashboard = () => {
       }
     )
   }
+  
+  const handleTaskDelete = () => {
+    http_Request(
+      {
+        url: API_URL.Task.DELETE_TASKS_BY_ID.replace("{taskId}", selected?.taskId),
+        method: 'DELETE',
+      },
+      function successCallback (response) {
+        fetchTaskListByUserId();
+        setIsAlertDialogOpen(false);    
+        setSnackData({ text: "Task deleted successfully", variant: "success" })     
+      },
+      function errorCallback (error) {
+        setSnackData({ text: "Error on task deletion !", variant: "error" })
+      }
+    )
+  }
 
   const handleSnackReset = () => {
     setSnackData({text: "", variant: ""})
@@ -115,14 +130,15 @@ const Dashboard = () => {
         isFormDialogOpen={isFormDialogOpen}
         handleCloseFormDIalog={handleCloseFormDIalog}
         formDialogViewMode={formDialogViewMode}
-        handleRefreshTaskList={handleRefreshTaskList}
+        handleRefreshTaskList={fetchTaskListByUserId}
         setSnackData={setSnackData}
+        selectedTask={selected}
       />
       <AlertDialog
         isAlertDialogOpen={isAlertDialogOpen}
         handleCloseAlertDIalog={handleCloseAlertDIalog}
         alertDialogContentText={"Do you want delete this task ?"}
-        handleSubmitAltertDialog={()=> {}}
+        handleSubmitAltertDialog={()=>handleTaskDelete()}
         setSnackData={setSnackData}
       />
       <Container>
