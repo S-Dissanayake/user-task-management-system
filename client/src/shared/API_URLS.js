@@ -11,7 +11,7 @@ export const API_URL = {
     },
 
     Task: {
-        PUT_TASKS_BY_USER_ID: taskBase + "/getTasksbyId/{userId}",
+        PUT_TASKS_BY_USER_ID: taskBase + "/getTasksbyUserId/{userId}",
         PUT_NEW_TASK: taskBase + "/addNewTask",
         DELETE_TASKS_BY_ID: taskBase + "/deleteTaskbyId/{taskId}",
         PUT_UPDATE_TASK_BY_ID: taskBase + "/updateTaskbyId/{taskId}",

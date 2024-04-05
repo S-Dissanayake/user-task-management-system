@@ -15,8 +15,8 @@ require("dotenv").config();
         }
     }
 
-    // API for GET All Tasks
-    router.put("/getTasksbyId/:userId", (req, res) => {
+    // API for GET All Tasks by UserId
+    router.put("/getTasksbyUserId/:userId", (req, res) => {
         const sql = "SELECT * FROM task WHERE userId = ?";
         const userId = req.params.userId;
         req.db.query(sql, [userId], (err, data) => {
