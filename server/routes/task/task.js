@@ -16,9 +16,10 @@ require("dotenv").config();
     }
 
     // API for GET All Tasks
-    router.get("/getAllTask", (req, res) => {
-        const sql = "SELECT * FROM task";
-        req.db.query(sql, (err, data) => {
+    router.put("/getTasksbyId/:userId", (req, res) => {
+        const sql = "SELECT * FROM task WHERE userId = ?";
+        const userId = req.params.userId;
+        req.db.query(sql, [userId], (err, data) => {
             if (err) {
                 return res.json({data: err, type: "Error"});
             }else{
@@ -27,35 +28,22 @@ require("dotenv").config();
     })
 
     // API for add task
-    router.post("/addNewTask",verifyToken,(req, res) => {
-        jwt.verify(req.token,'aquaExpert',(err,authData)=> {
+    router.put("/addNewTask", verifyToken, (req, res) => {
+        const sql = "INSERT INTO task (userId, title, priority, status) VALUES (?)";
+        const values = [
+            req.body.userId,
+            req.body.title,
+            req.body.priority,
+            req.body.status,
+        ]
+        req.db.query(sql, [values], (err, data) => {
             if(err){
-                res.sendStatus(403);
-            }else {
-                const sql = "INSERT INTO aquaexperts_db.product (name, category, price, oldPrice, description, imageUrl, createdDate, latestUpdatedDate, favorite, sale, outOfStock) VALUES (?)";
-                const values = [
-                    req.body.name,
-                    req.body.category,
-                    req.body.price,
-                    req.body.oldPrice,
-                    req.body.description,
-                    req.body.imageUrl,
-                    req.body.createdDate,
-                    req.body.latestUpdatedDate,
-                    req.body.favorite,
-                    req.body.sale,
-                    req.body.outOfStock
-                ]
-                db.query(sql, [values], (err, data) => {
-                    if(err){
-                        return res.json({error: true, err: err});            
-                    }
-                    else{
-                        return res.json(data);
-                    }
-                })
+                return res.json({error: true, err: err});            
             }
-        })    
+            else{
+                return res.json(data);
+            }
+        })  
     })
 
     // API for DELETE a task from DB

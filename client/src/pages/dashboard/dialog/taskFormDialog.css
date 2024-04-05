@@ -1,0 +1,48 @@
+.form-label {
+    color: #03246d;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 1rem 0 0.25rem 0 !important;
+    display: inline-flex;
+}
+
+.required-red-star {
+    font-size: 20px;
+    margin-left: 5px;
+    margin-top: -3px;
+    color: red !important;
+}
+
+.form-add-btn {
+    background-color: #409de9;
+    color :#ffffff;
+    margin-right: 10px;
+}
+
+.form-add-btn:hover {
+    background-color: #409de9;
+    color :#ffffff;
+    margin-right: 10px;
+}
+
+.form-cancel-btn {
+    background-color: rgb(206, 206, 206);
+    color :#424242;
+}
+
+.form-cancel-btn:hover {
+    background-color: rgb(206, 206, 206);
+    color :#424242
+}
+
+.form-update-btn {
+    background-color: #409de9;
+    color :#ffffff;
+    margin-right: 10px;    
+}
+
+.form-update-btn:hover {
+    background-color: #409de9 !important;
+    color :#ffffff;
+    margin-right: 10px;
+}

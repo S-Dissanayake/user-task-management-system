@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -11,6 +11,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 
 import Iconify from '../../../components/iconify/Iconify';
+import AlertDialog from '../../../components/alertDialog/AlertDialog';
 
 import TableNoData from '../table-no-data';
 import TableRow from '../table-row';
@@ -18,47 +19,47 @@ import TableHead from '../table-head';
 import TableEmptyRows from '../table-empty-rows';
 import { emptyRows } from '../utils';
 
+import TaskFormDialog from '../dialog/TaskFormDialog';
+
+import { http_Request } from '../../../utils/HTTP_Request';
+import { API_URL } from '../../../shared/API_URLS';
+
 // ----------------------------------------------------------------------
 
 const Dashboard = () => {
 
-  const dummy_taskList = [
-    {
-      id: '123',
-      taskTitle : "go to bed",
-      priority : "High",
-      status: 'active'
-    },
-    {
-      id: '2',
-      taskTitle : "Reding a Book",
-      priority : "Low",
-      status: 'active'
-    }
-  ];
-
-  const [taskList, setTaskList] = useState(dummy_taskList);
+  const [taskList, setTaskList] = useState([]);
   const [page, setPage] = useState(0);
-  const [selected, setSelected] = useState([]);
+  const [selected, setSelected] = useState({});
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
+  const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
+  const [formDialogViewMode, setFormDialogViewMode] = useState("NEW");
+
+  const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
+
+  const notFound = (taskList.length === 0) ? true : false;
+
+  useEffect(() => {
+    fetchTaskListByUserId();
+  }, [])
+  
+
+  const handleActionClick = (actionType, rowData) => {
+    setSelected(rowData);
+    if (actionType === "NEW" || actionType === "EDIT") {
+      setFormDialogViewMode(actionType);      
+      setIsFormDialogOpen(true);
+    } else if (actionType === "DELETE") {
+      setIsAlertDialogOpen(true);
     }
-    setSelected(newSelected);
+
   };
+
+  const HandleNewTaskOnClick = () => {
+    setFormDialogViewMode("NEW");
+    setIsFormDialogOpen(true);
+  }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -69,14 +70,43 @@ const Dashboard = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
   };
 
-  const notFound = (taskList.length === 0) ? true : false;
+  const handleCloseFormDIalog = () => {
+    setIsFormDialogOpen(false);
+  }
+
+  const handleCloseAlertDIalog = () => {
+    setIsAlertDialogOpen(false);
+  }
+
+  const handleRefreshTaskList = () => {
+    fetchTaskListByUserId();
+  }
+
+  const fetchTaskListByUserId = () => {
+    let userDetails = JSON.parse(localStorage.getItem("user"));
+    http_Request(
+      {
+        url: API_URL.Task.PUT_TASKS_BY_USER_ID.replace("{userId}", userDetails?.userId),
+        method: 'PUT',
+      },
+      function successCallback (response) {    
+        if ( response.data) {
+          setTaskList(response.data)
+        }      
+      },
+      function errorCallback (error) {
+        console.log('error', error)
+      }
+    )
+  }
+
 
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} mt={4}>
         <Typography variant="h4">Task List</Typography>
 
-        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
+        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill"/>} onClick={()=> {HandleNewTaskOnClick()}}>
           New Task
         </Button>
       </Stack>
@@ -98,11 +128,10 @@ const Dashboard = () => {
                   .map((row) => (
                     <TableRow
                       key={row.id}
-                      taskTitle={row.taskTitle}
+                      taskTitle={row.title}
                       status={row.status}
                       priority={row.priority}
-                      selected={selected.indexOf(row.taskTitle) !== -1}
-                      handleClick={(event) => handleClick(event, row.taskTitle)}
+                      handleActionClick={(actionType) => handleActionClick(actionType, row)}
                     />
                   ))}
 
@@ -126,6 +155,19 @@ const Dashboard = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Card>
+
+      <TaskFormDialog
+        isFormDialogOpen={isFormDialogOpen}
+        handleCloseFormDIalog={handleCloseFormDIalog}
+        formDialogViewMode={formDialogViewMode}
+        handleRefreshTaskList={handleRefreshTaskList}
+      />
+      <AlertDialog
+        isAlertDialogOpen={isAlertDialogOpen}
+        handleCloseAlertDIalog={handleCloseAlertDIalog}
+        alertDialogContentText={"Do you want delete this task ?"}
+        handleSubmitAltertDialog={()=> {}}
+      />
     </Container>
   );
 }

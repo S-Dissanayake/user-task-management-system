@@ -18,21 +18,11 @@ import { Tooltip } from '@mui/material';
 // ----------------------------------------------------------------------
 
 export default function UserTableRow({
-  selected,
   taskTitle,
   priority,
   status,
-  handleClick,
+  handleActionClick,
 }) {
-  const [open, setOpen] = useState(null);
-
-  const handleOpenMenu = (event) => {
-    setOpen(event.currentTarget);
-  };
-
-  const handleCloseMenu = () => {
-    setOpen(null);
-  };
 
   return (
     <>
@@ -55,12 +45,12 @@ export default function UserTableRow({
 
         <TableCell align="right">
           <Tooltip title="Edit">
-            <IconButton onClick={handleOpenMenu} sx={{":hover":{backgroundColor: '#99c6fc'}, marginRight: "10px"}}>
+            <IconButton onClick={()=>{handleActionClick("EDIT")}} sx={{":hover":{backgroundColor: '#99c6fc'}, marginRight: "10px"}}>
               <Iconify icon="mdi:note-edit"  />     
             </IconButton>
           </Tooltip>
           <Tooltip title="Delete">
-            <IconButton onClick={handleOpenMenu} sx={{":hover": {backgroundColor: '#f9a495'}}}>
+            <IconButton onClick={()=>{handleActionClick("DELETE")}} sx={{":hover": {backgroundColor: '#f9a495'}}}>
               <Iconify icon="bxs:trash" />
             </IconButton>
           </Tooltip>
@@ -71,9 +61,8 @@ export default function UserTableRow({
 }
 
 UserTableRow.propTypes = {
-  handleClick: PropTypes.func,
+  handleActionClick: PropTypes.func,
   priority: PropTypes.string,
   taskTitle: PropTypes.string,
-  selected: PropTypes.any,
   status: PropTypes.string,
 };

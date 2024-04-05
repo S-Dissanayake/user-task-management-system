@@ -116,7 +116,7 @@ const Login = () => {
       function successCallback (response) {
         if ( response.data.signup) {
           localStorage.setItem('jwtToken',response.data.token);
-          localStorage.setItem('user', JSON.stringify({id: response.data.id, name: signupSubmitData.name}));
+          localStorage.setItem('user', JSON.stringify({userId: response.data.id, name: signupSubmitData.name}));
           router.push('/dashboard');
         }        
       },

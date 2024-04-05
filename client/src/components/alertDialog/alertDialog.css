@@ -1,0 +1,25 @@
+.dialog-action {
+    padding: 20px;
+}
+
+.submit-btn {
+    background-color: #50a1e2;
+    color :#ffffff;
+    margin-right: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #409de9;
+    color :#ffffff;
+    margin-right: 10px;
+}
+
+.cancel-btn {
+    background-color: rgb(206, 206, 206);
+    color :#424242;
+}
+
+.cancel-btn:hover {
+    background-color: rgb(206, 206, 206);
+    color :#424242
+}

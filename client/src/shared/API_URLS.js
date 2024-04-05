@@ -7,10 +7,12 @@ const taskBase = ipAddress + "/taskService/api";
 export const API_URL = {
     User: {
         POST_USER_LOGIN:  userBase + "/login",
-        POST_USER_SIGNUP: userBase + "/signup"
+        POST_USER_SIGNUP: userBase + "/signup",
     },
 
     Task: {
-        GET_TASKS_BY_USER_ID: taskBase + "/getTasksbyId/{userId}",
+        PUT_TASKS_BY_USER_ID: taskBase + "/getTasksbyId/{userId}",
+        PUT_NEW_TASK: taskBase + "/addNewTask",
+        DELETE_TASKS_BY_ID: taskBase + "/deleteTaskbyId/{taskId}"
     },
 };
