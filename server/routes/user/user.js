@@ -38,7 +38,10 @@ router.post("/login", (req, res) => {
             const token = jwt.sign({id}, JWT_KEY, {expiresIn: '12h'})
             return res.json({login: true, token, user});
         }else {
-            return res.json("Fail", err);
+            return res.status(404).json({
+                status: "Error",
+                message: "Username or Password is Incorrect. Try again.",
+            })         
         }
     })
 })

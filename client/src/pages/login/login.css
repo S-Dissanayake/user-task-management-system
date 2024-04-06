@@ -1,3 +1,10 @@
+.main-container {
+    align-items: center;
+    justify-content: center;
+    background-image: url('../../assets/login_bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 
 .validation-msg-typo {
     font-size: 12px !important;
@@ -8,4 +15,11 @@
     font-size: 12px !important;
     color: red;
     padding-left: 15px;
+}
+
+.mistyped-input-error-msg {
+    font-size: 14px !important;
+    color: red;
+    padding-top: 15px;
+    text-align: center;
 }

@@ -18,7 +18,6 @@ import { emailValidator, passwordValidator } from '../../utils/validations';
 import { http_Request } from '../../utils/HTTP_Request';
 import { API_URL } from '../../shared/API_URLS';
 
-import { bgGradient } from '../../theme/css';
 import './login.css';
 
 // ----------------------------------------------------------------------
@@ -43,10 +42,12 @@ const Login = () => {
   const [isLoginView, setIsLoginView] = useState(true);
   const [formData,setFormData] = useState(initialFormValues);
   const [formErrors,setFormErrors] = useState(initialFormErrors);
+  const [isMistypedInput, setIsMistypedInput] = useState("");
 
   const inputOnchangeHandler = (e) => {
     setFormData({...formData,[e.target.name]:e.target.value});
     setFormErrors({...formErrors, [e.target.name]:false});
+    setIsMistypedInput("");
   }
 
   const formViewHandler = () => {
@@ -100,7 +101,7 @@ const Login = () => {
         }      
       },
       function errorCallback (error) {
-        console.log('error', error)
+        setIsMistypedInput(error?.response?.data?.message || "")
       }
     )
   }
@@ -213,15 +214,7 @@ const Login = () => {
   );
 
   return (
-    <Box
-      sx={{
-        ...bgGradient({
-          color: alpha(theme.palette.background.default, 0.9),
-          imgUrl: '/assets/background/overlay_4.jpg',
-        }),
-        height: 1,
-      }}
-    >
+    <Box className='main-container' sx={{height: 1}}>
       <Stack alignItems="center" justifyContent="center" sx={{ height: 1 }}>
         <Card
           sx={{
@@ -243,6 +236,10 @@ const Login = () => {
             </Button>
           </Typography>
           {renderForm}
+          { isMistypedInput && 
+            <Typography className='mistyped-input-error-msg'>
+              {isMistypedInput}
+            </Typography> }
         </Card>
       </Stack>
     </Box>
