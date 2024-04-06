@@ -155,7 +155,7 @@ const Dashboard = () => {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} mt={4}>
           <Typography variant="h4">Task List</Typography>
-          <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill"/>} onClick={()=> {HandleNewTaskOnClick()}}>
+          <Button variant="contained" color="success" startIcon={<Iconify icon="eva:plus-fill"/>} onClick={()=> {HandleNewTaskOnClick()}}>
             New Task
           </Button>
         </Stack>
