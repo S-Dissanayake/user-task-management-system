@@ -11,16 +11,15 @@ import InputAdornment from '@mui/material/InputAdornment';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { alpha, useTheme } from '@mui/material/styles';
 
-import Logo from '../../components/logo/Logo';
 import Iconify from '../../components/iconify/Iconify';
 
 import { useRouter } from '../../routes/hooks';
-
+import { emailValidator, passwordValidator } from '../../utils/validations';
 import { http_Request } from '../../utils/HTTP_Request';
 import { API_URL } from '../../shared/API_URLS';
 
 import { bgGradient } from '../../theme/css';
-
+import './login.css';
 
 // ----------------------------------------------------------------------
 
@@ -38,7 +37,6 @@ const Login = () => {
   }
 
   const theme = useTheme();
-
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -68,7 +66,13 @@ const Login = () => {
         tempFormErrors = {...tempFormErrors, [item]: false}
       }
     })
-    setFormErrors(tempFormErrors);  
+    if (!emailValidator(formData?.email)) {
+      tempFormErrors = {...tempFormErrors, ['email']: true}
+    }
+    if (!passwordValidator(formData?.password)) {
+      tempFormErrors = {...tempFormErrors, ['password']: true}
+    }
+    setFormErrors(tempFormErrors);     
 
     if(!tempFormErrors?.email && !tempFormErrors?.password && isLoginView){
       loginSubmit()
@@ -126,6 +130,29 @@ const Login = () => {
     )
   }
 
+  const emailInvalidMsg = (
+    <Box>
+      <Typography className='validation-msg-typo'>
+        Please enter a valid e-mail
+      </Typography>
+    </Box>
+  )
+
+  const passwordInvalidMsg = (
+    <Box>
+      <Typography className='validation-msg-typo'>
+        Your password must contain, <br/>
+      </Typography>
+      <Typography className='validation-msg-details-typo'>         
+        At least 8 characters long, <br/> 
+        At least one number, <br/> 
+        At least one special character, <br/> 
+        At least one uppercase, <br/> 
+        At least one lowercase letters.
+      </Typography> 
+    </Box>
+  )
+
   const renderForm = (
     <>
       <Stack spacing={3}>
@@ -149,6 +176,7 @@ const Login = () => {
           onChange={inputOnchangeHandler}
           error={formErrors.email}
         />
+        { (formErrors?.email ) && emailInvalidMsg}
 
         <TextField
           id='password_field'
@@ -167,7 +195,8 @@ const Login = () => {
           }}
           error={formErrors.password}
         />
-      </Stack>
+        { (formErrors?.password ) && passwordInvalidMsg}
+      </Stack>      
 
       <LoadingButton
         fullWidth
@@ -203,7 +232,6 @@ const Login = () => {
           
         >
           <Typography variant="h4" sx={{textAlign: 'center'}}>Task Manager</Typography>
-
           <Typography variant="body2" sx={{ mt: 2, mb: 4 , textAlign: 'center'}}>
             {isLoginView ? 'Don’t have an account?' : 'Already have an account?'}
             <Button 
@@ -214,7 +242,6 @@ const Login = () => {
               {isLoginView ? 'Join here' : 'Login' }
             </Button>
           </Typography>
-
           {renderForm}
         </Card>
       </Stack>
