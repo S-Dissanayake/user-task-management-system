@@ -1,5 +1,4 @@
 import * as React from 'react';
-import moment from 'moment';
 
 import Popover from '@mui/material/Popover';
 import Timeline from '@mui/lab/Timeline';
@@ -8,9 +7,7 @@ import TimelineSeparator from '@mui/lab/TimelineSeparator';
 import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
-import TimelineOppositeContent, {
-  timelineOppositeContentClasses,
-} from '@mui/lab/TimelineOppositeContent';
+import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 
 const ColoredTimeline = (props) => {
 
@@ -83,7 +80,6 @@ const ColoredTimeline = (props) => {
               <TimelineContent>Completed</TimelineContent>
             </TimelineItem>
           }
-
         </Timeline>
       </Popover>
     </div>

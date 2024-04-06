@@ -2,17 +2,16 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
 import ListItemButton from '@mui/material/ListItemButton';
-
 import { alpha } from '@mui/material/styles';
 
 import { usePathname } from '../../routes/hooks';
 import { RouterLink } from '../../routes/components';
-import Logo from '../../components/logo/Logo';
-
 import { useResponsive } from '../../hooks/use-responsive';
+import Logo from '../../components/logo/Logo';
 
 import { NAV } from './config-layout';
 import navConfig from './config-navigation';
@@ -40,11 +39,11 @@ export default function Nav({ openNav, onCloseNav }) {
   );
 
   const renderContent = (
-    <>
+    <Grid>
       <Logo sx={{ mt: 3, ml: 4 }} />
       <Box sx={{ flexGrow: 1 , marginBottom: '50px'}} />
       {renderMenu}      
-    </>      
+    </Grid>      
   );
 
   return (
