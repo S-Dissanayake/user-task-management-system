@@ -101,9 +101,17 @@ const TaskFormDialog = (props) => {
     setFormValues(initialFormValues);
   }
 
-  const handleFormValues =(e)=> {
+  const handleFormValues = (e) => {
     setFormValues({...formValues, [e.target.name]: e.target.value});
     setFormErrors({...formErrors, [e.target.name]: false});
+  }
+
+  const handleFormSubmit = (type) => {
+    if (formValues?.title === "") {
+      setFormErrors({...formErrors, ['title']: true})
+    } else {
+      type === "NEW" ? handleAddNewTask() : handleUpdateTask();
+    }
   }
 
   const handleAddNewTask = () => {
@@ -257,8 +265,8 @@ const TaskFormDialog = (props) => {
         <DialogActions>
           <Box sx={{m: "20px"}}>
             {
-              formDialogViewMode === "NEW" ? <Button onClick={()=> {handleAddNewTask()}} className='form-add-btn'>Add</Button>
-              : formDialogViewMode === "EDIT" ? <Button onClick={()=> {handleUpdateTask()}} className='form-update-btn'>Update</Button>
+              formDialogViewMode === "NEW" ? <Button onClick={()=> {handleFormSubmit("NEW")}} className='form-add-btn'>Add</Button>
+              : formDialogViewMode === "EDIT" ? <Button onClick={()=> {handleFormSubmit("UPDATE")}} className='form-update-btn'>Update</Button>
               : <></>
             }
             <Button className='form-cancel-btn' onClick={()=> {handleCloseFormDIalog(); handleFormReset()}}>Cancel</Button>
