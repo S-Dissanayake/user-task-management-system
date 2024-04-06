@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 
@@ -14,12 +15,16 @@ import { NAV, HEADER } from './config-layout';
 
 import Logo from '../../components/logo/Logo';
 
+import Avtar from '../../assets/icons/user_avatar.svg';
+
 // ----------------------------------------------------------------------
 
 export default function Header({ onOpenNav }) {
   const theme = useTheme();
 
   const lgUp = useResponsive('up', 'lg');
+
+  const userName = JSON.parse(localStorage.getItem("user")).name;
 
   const renderContent = (
     <>
@@ -28,8 +33,6 @@ export default function Header({ onOpenNav }) {
           <Logo/>
         </IconButton>
       )}
-
-
       <Box sx={{ flexGrow: 1 }} />
     </>
   );
@@ -60,7 +63,14 @@ export default function Header({ onOpenNav }) {
         }}
       >
         {renderContent}
-      </Toolbar>
+        <Box>
+          <Typography sx={{color: '#34465b', paddingRight: '10px', fontWeight: 600}}>
+            Hello, {userName}
+          </Typography>
+        </Box>
+        
+        <img src={Avtar} alt='avatar' height='40px'/>
+      </Toolbar>      
     </AppBar>
   );
 }
