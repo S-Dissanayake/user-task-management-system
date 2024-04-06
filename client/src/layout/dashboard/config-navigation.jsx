@@ -1,5 +1,4 @@
 import DashboardIcon from '../../assets/icons/dashboard.svg';
-import TaskListIcon from '../../assets/icons/task_list.svg';
 import LogoutIcon from '../../assets/icons/logout.svg';
 
 const navConfig = [

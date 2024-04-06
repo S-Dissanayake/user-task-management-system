@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -40,7 +41,12 @@ export default function Nav({ openNav, onCloseNav }) {
 
   const renderContent = (
     <Grid>
-      <Logo sx={{ mt: 3, ml: 4 }} />
+      <Stack direction='row' alignItems='center'>
+        <Logo sx={{ mt: 3, ml: 4 }} />
+        <Typography sx={{padding: '25px 0 0 10px', fontWeight:600, color: '#1877F2', fontSize: '18px'}}>
+          Task Manager
+        </Typography>
+      </Stack>
       <Box sx={{ flexGrow: 1 , marginBottom: '50px'}} />
       {renderMenu}      
     </Grid>      
@@ -51,6 +57,8 @@ export default function Nav({ openNav, onCloseNav }) {
       sx={{
         flexShrink: { lg: 0 },
         width: { lg: NAV.WIDTH },
+        backgroundColor: 'yellow',
+        boxShadow:  '8px 0px 10px -9px rgba(0,0,0,0.1)'
       }}
     >
       {upLg ? (
@@ -109,10 +117,10 @@ function NavItem({ item }) {
         typography: 'body2',
         color: 'primary.main',
         textTransform: 'capitalize',
-        fontWeight: 'fontWeightMedium',
+        fontWeight: 'fontWeightSemiBold',
         ...(active && {
           fontWeight: 'fontWeightSemiBold',
-          bgcolor: (theme) => alpha(theme.palette.primary.main, 0.08),
+          bgcolor: (theme) => alpha(theme.palette.primary.main, 0.2),
           '&:hover': {
             bgcolor: (theme) => alpha(theme.palette.primary.main, 0.16),
           },

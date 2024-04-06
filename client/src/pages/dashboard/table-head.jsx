@@ -20,9 +20,9 @@ export default function UserTableHead({
           <TableCell
             key={headCell.id}
             align={headCell.align || 'left'}
-            sx={{ width: headCell.width, minWidth: headCell.minWidth, backgroundColor: '#e0eeff' }}
+            sx={{ width: headCell.width, minWidth: headCell.minWidth, backgroundColor: '#effafc' }}
           >
-            <Typography variant='subtitle1'>
+            <Typography variant='subtitle1' color='MenuText'>
               {headCell.label}
             </Typography>            
           </TableCell>
