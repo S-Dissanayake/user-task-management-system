@@ -37,7 +37,7 @@ export default function CustomizedSnackbars(props) {
 
   return (
     <Stack spacing={2} sx={{ width: '100%' }}>
-      <Snackbar open={open} autoHideDuration={5000} onClose={()=>handleClose()}>
+      <Snackbar data-testid='snackbar' open={open} autoHideDuration={5000} onClose={()=>handleClose()}>
         <Alert onClose={()=>handleClose()} severity={variant} sx={{ width: '100%' }}>
           {text}
         </Alert>
