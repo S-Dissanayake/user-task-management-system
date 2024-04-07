@@ -7,38 +7,38 @@
 }
 
 .required-red-star {
-    font-size: 20px;
-    margin-left: 5px;
-    margin-top: -3px;
+    font-size: 20px !important;
+    margin-left: 5px  !important;
+    margin-top: -3px !important;
     color: red !important;
 }
 
 .form-add-btn {
-    background-color: #409de9;
-    color :#ffffff;
-    margin-right: 10px;
+    background-color: #409de9 !important;
+    color :#ffffff !important;
+    margin-right: 10px !important;
 }
 
 .form-add-btn:hover {
-    background-color: #409de9;
-    color :#ffffff;
-    margin-right: 10px;
+    background-color: #409de9 !important;
+    color :#ffffff !important;
+    margin-right: 10px !important;
 }
 
 .form-cancel-btn {
-    background-color: rgb(206, 206, 206);
-    color :#424242;
+    background-color: rgb(206, 206, 206) !important;
+    color :#424242 !important;
 }
 
 .form-cancel-btn:hover {
-    background-color: rgb(206, 206, 206);
-    color :#424242
+    background-color: rgb(206, 206, 206) !important;
+    color :#424242 !important
 }
 
 .form-update-btn {
-    background-color: #409de9;
-    color :#ffffff;
-    margin-right: 10px;    
+    background-color: #409de9 !important;
+    color :#ffffff !important;
+    margin-right: 10px !important;    
 }
 
 .form-update-btn:hover {

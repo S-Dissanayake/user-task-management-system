@@ -1,27 +1,27 @@
 .dialog-action {
-    padding: 20px;
+    padding: 20px  !important;
 }
 
 .submit-btn {
-    background-color: #f76e6e;
-    color :#ffffff;
-    margin-right: 10px;
+    background-color: #f76e6e !important;
+    color :#ffffff !important;
+    margin-right: 10px !important;
 }
 
 .submit-btn:hover {
-    background-color: #fc3a3a;
-    color :#ffffff;
-    margin-right: 10px;
+    background-color: #fc3a3a !important;
+    color :#ffffff !important;
+    margin-right: 10px !important;
 }
 
 .cancel-btn {
-    background-color: rgb(206, 206, 206);
-    color :#424242;
+    background-color: rgb(206, 206, 206) !important;
+    color :#424242 !important;
 }
 
 .cancel-btn:hover {
-    background-color: rgb(179, 179, 179);
-    color :#424242
+    background-color: rgb(179, 179, 179) !important;
+    color :#424242 !important
 }
 
 .msg-typo {
