@@ -21,7 +21,7 @@ user can create new task, Status fiels is desabled for New tasks, and it set as 
 ![image](https://github.com/S-Dissanayake/user-task-management-system/assets/89515541/297b6332-8656-4381-8932-4e16dab77371)
 
 # Task List
-task list table component has 4 rows, which are Task Title, Priority, Status and Actions.
+task list table component has 4 column, which are Task Title, Priority, Status and Actions.
 User can view, Edit and Delete by clicking relevent action buttons. 
 ![image](https://github.com/S-Dissanayake/user-task-management-system/assets/89515541/df263f31-f8b8-4214-b2c6-50949728fe9b)
 
