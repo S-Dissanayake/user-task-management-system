@@ -1,6 +1,37 @@
 # User task management system
 This is a User task management system. This system allow users to create, update, and view and delete tasks. 
 
+Tech stack:
+  
+      Front-end - React
+        
+      Backend - Node/Express.js  
+      
+      DataBase - MySql  
+      
+      Front-end Testing - Vitest with React testing library
+
+# Setup Guide
+01. clone the repository (or download as Zip file)
+02. install Node modules on both front-end and Backend
+
+      ![image](https://github.com/S-Dissanayake/user-task-management-system/assets/89515541/e27347c1-cf2c-42e7-b4cf-c9ced1973476)
+      ![image](https://github.com/S-Dissanayake/user-task-management-system/assets/89515541/c8aa6e58-9780-421b-aa03-0d2572358d7a)
+  
+03. create new mysql schema named 'task_manager', import provided task_manager.sql file into created schema.
+04. Start the backend server using "npm start" command
+   
+      ![image](https://github.com/S-Dissanayake/user-task-management-system/assets/89515541/4910052d-bda4-48d1-8e72-5183dfa31ee1)
+
+05. Start the Front-end using "npm run dev" command
+
+      ![image](https://github.com/S-Dissanayake/user-task-management-system/assets/89515541/9f6393db-8318-4f6d-ba01-70acfe8046e4)
+
+06. Run Test by using 'npm test' command
+  
+     ![image](https://github.com/S-Dissanayake/user-task-management-system/assets/89515541/055cf85d-65a2-4825-ac43-0626c6065fd7)
+     ![image](https://github.com/S-Dissanayake/user-task-management-system/assets/89515541/ce400d40-d946-4e36-ba5a-abd5d0e97b64)
+   
 # Login Screen
 ![image](https://github.com/S-Dissanayake/user-task-management-system/assets/89515541/0cf8bfa1-cdd5-4908-bbf6-bcee78764b3f)
 
