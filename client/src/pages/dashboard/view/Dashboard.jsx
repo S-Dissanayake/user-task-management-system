@@ -36,12 +36,11 @@ const Dashboard = () => {
   const [selected, setSelected] = useState({});
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [snackData, setSnackData]= useState({text: "", variant: ""});
-
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
   const [formDialogViewMode, setFormDialogViewMode] = useState("NEW");
-
   const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
 
+  // effect on dashboard mount
   useEffect(() => {
     if (localStorage.getItem('jwtToken')) {
       fetchTaskListByUserId();      
@@ -50,6 +49,7 @@ const Dashboard = () => {
     }
   }, [])
   
+  // fnction for handle action clicks
   const handleActionClick = (actionType, rowData) => {
     setSelected(rowData);
     if (actionType === "EDIT" || actionType === "VIEW") {
@@ -60,30 +60,36 @@ const Dashboard = () => {
     }
   };
 
+  // function for handle new task btn click
   const HandleNewTaskOnClick = () => {
     setFormDialogViewMode("NEW");
     setIsFormDialogOpen(true);
   }
 
+  // function for handle page number of table
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
+  // function for handle number of rows in one page
   const handleChangeRowsPerPage = (event) => {
     setPage(0);
     setRowsPerPage(parseInt(event.target.value, 10));
   };
 
+  // function to close task form dialog
   const handleCloseFormDIalog = () => {
     setIsFormDialogOpen(false);
     setSelected({});
   }
 
+  // function to close altert dialog
   const handleCloseAlertDIalog = () => {
     setIsAlertDialogOpen(false);
     setSelected({});
   }
 
+  // function for fetch task list for user
   const fetchTaskListByUserId = () => {
     let userDetails = JSON.parse(localStorage.getItem("user"));
     http_Request(
