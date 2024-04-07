@@ -201,6 +201,7 @@ const Login = () => {
       </Stack>      
 
       <LoadingButton
+        name="submit-btn"
         fullWidth
         size="large"
         type="submit"
