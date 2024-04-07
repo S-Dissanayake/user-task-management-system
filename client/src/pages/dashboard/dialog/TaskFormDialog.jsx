@@ -205,7 +205,8 @@ const TaskFormDialog = (props) => {
               </p>
               <TextField 
                 name='title'
-                id="task-title" 
+                id="task-title"
+                data-testid='task-title' 
                 fullWidth 
                 variant="outlined" 
                 value={formValues?.title}
@@ -222,6 +223,7 @@ const TaskFormDialog = (props) => {
               <TextField
                 name='priority'
                 id="task-priority"
+                data-testid='task-priority' 
                 select
                 defaultValue="Low"
                 value={formValues?.priority}
@@ -244,6 +246,7 @@ const TaskFormDialog = (props) => {
               <TextField
                 name='status'
                 id="task-status"
+                data-testid='task-status' 
                 select
                 defaultValue="New"
                 value={formValues?.status}
@@ -265,11 +268,11 @@ const TaskFormDialog = (props) => {
         <DialogActions>
           <Box sx={{m: "20px"}}>
             {
-              formDialogViewMode === "NEW" ? <Button onClick={()=> {handleFormSubmit("NEW")}} className='form-add-btn'>Add</Button>
-              : formDialogViewMode === "EDIT" ? <Button onClick={()=> {handleFormSubmit("UPDATE")}} className='form-update-btn'>Update</Button>
+              formDialogViewMode === "NEW" ? <Button data-testid='add-btn' onClick={()=> {handleFormSubmit("NEW")}} className='form-add-btn'>Add</Button>
+              : formDialogViewMode === "EDIT" ? <Button data-testid='update-btn' onClick={()=> {handleFormSubmit("UPDATE")}} className='form-update-btn'>Update</Button>
               : <></>
             }
-            <Button className='form-cancel-btn' onClick={()=> {handleCloseFormDIalog(); handleFormReset()}}>Cancel</Button>
+            <Button className='form-cancel-btn' data-testid='cancel-btn' onClick={()=> {handleCloseFormDIalog(); handleFormReset()}}>Cancel</Button>
           </Box>
           
         </DialogActions>
