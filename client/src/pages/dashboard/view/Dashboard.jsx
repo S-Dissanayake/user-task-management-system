@@ -23,7 +23,6 @@ import TableNoData from '../table-no-data';
 import TableRow from '../table-row';
 import TableHead from '../table-head';
 import TableEmptyRows from '../table-empty-rows';
-import { emptyRows } from '../utils';
 
 // ----------------------------------------------------------------------
 
@@ -42,12 +41,8 @@ const Dashboard = () => {
 
   // effect on dashboard mount
   useEffect(() => {
-    if (localStorage.getItem('jwtToken')) {
-      fetchTaskListByUserId();      
-    } else {
-      router.push('/');
-    }
-  }, [])
+      fetchTaskListByUserId();
+  }, [])  
   
   // fnction for handle action clicks
   const handleActionClick = (actionType, rowData) => {
@@ -135,6 +130,11 @@ const Dashboard = () => {
   const handleSnackReset = () => {
     setSnackData({text: "", variant: ""})
   }
+
+  const emptyRows = (page, rowsPerPage, arrayLength) => {
+    return page ? Math.max(0, (1 + page) * rowsPerPage - arrayLength) : 0;
+  }
+  
 
   return (
     <>
