@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+// common function for integrate APIs
 export const http_Request = (data, successCallback, errorCallback, otherDetails) => {
     axios({
         url: data.url,

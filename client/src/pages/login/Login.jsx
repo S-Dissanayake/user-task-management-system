@@ -9,7 +9,6 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { useTheme } from '@mui/material/styles';
 
 import Iconify from '../../components/iconify/Iconify';
 
@@ -24,39 +23,43 @@ import './login.css';
 // ----------------------------------------------------------------------
 
 const Login = () => {
+  // initial values
   const initialFormValues = {
     name:"",
     email:"",
     password:""
   }
-
   const initialFormErrors = {
     name:false, 
     email:false, 
     password:false
   }
 
-  const theme = useTheme();
+  // use router 
   const router = useRouter();
 
+  // Local states
   const [showPassword, setShowPassword] = useState(false);
   const [isLoginView, setIsLoginView] = useState(true);
   const [formData,setFormData] = useState(initialFormValues);
   const [formErrors,setFormErrors] = useState(initialFormErrors);
   const [isMistypedInput, setIsMistypedInput] = useState("");
 
+  // function for handle user inputs
   const inputOnchangeHandler = (e) => {
     setFormData({...formData,[e.target.name]:e.target.value});
     setFormErrors({...formErrors, [e.target.name]:false});
     setIsMistypedInput("");
   }
 
+  // function for handle login/signin view mode  
   const formViewHandler = () => {
     setFormErrors(initialFormErrors);
     setFormData(initialFormValues);
     setIsLoginView(!isLoginView);
   }
 
+  // function for handle from submit btn click
   const formSubmitHandler = () => {
     const tempFormData = formData;
     let tempFormErrors = {name:false, email:false, password:false};
@@ -83,6 +86,7 @@ const Login = () => {
     }
   }
 
+  // API integration for user login
   const loginSubmit = () => {
     let loginSubmitData = {
       email: formData.email,
@@ -107,6 +111,7 @@ const Login = () => {
     )
   }
 
+  // API integration for user Signin
   const signupSubmit = () => {
     let signupSubmitData = {
       name: formData.name,
