@@ -213,6 +213,7 @@ const TaskFormDialog = (props) => {
                 onChange={(e)=> {handleFormValues(e)}}
                 error={formErrors.title}
                 disabled={formDialogViewMode === "VIEW"}
+                placeholder='Task Title'
               /> 
             </Grid>
             <Grid container item xs={12} md={4} direction='column' sx={{paddingRight: "25px"}}>
