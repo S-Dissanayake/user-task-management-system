@@ -40,7 +40,7 @@ router.post("/login", (req, res) => {
         }else {
             return res.status(404).json({
                 status: "Error",
-                message: "Username or Password is Incorrect. Try again.",
+                message: "E-mail or Password is Incorrect. Try again.",
             })         
         }
     })
