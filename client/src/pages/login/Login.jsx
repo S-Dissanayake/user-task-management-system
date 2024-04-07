@@ -228,8 +228,7 @@ const Login = () => {
             p: 5,
             width: 1,
             maxWidth: 420,
-          }}
-          
+          }}          
         >
           <Typography variant="h4" sx={{textAlign: 'center'}}>Task Manager</Typography>
           <Typography variant="body2" sx={{ mt: 2, mb: 4 , textAlign: 'center'}}>
