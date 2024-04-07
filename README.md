@@ -3,13 +3,13 @@ This is a User task management system. This system allow users to create, update
 
 Tech stack:
   
-      Front-end - React
-        
-      Backend - Node/Express.js  
-      
-      DataBase - MySql  
-      
-      Front-end Testing - Vitest with React testing library
+  Front-end - React
+    
+  Backend - Node/Express.js  
+  
+  DataBase - MySql  
+  
+  Front-end Testing - [Vitest](https://vitest.dev/) with [React testing library](https://testing-library.com/)
 
 # Setup Guide
 01. clone the repository (or download as Zip file)
