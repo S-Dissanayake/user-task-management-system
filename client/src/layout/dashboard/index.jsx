@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Outlet } from "react-router-dom"
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
@@ -25,7 +26,7 @@ export default function DashboardLayout({ children }) {
       >
         <Nav openNav={openNav} onCloseNav={() => setOpenNav(false)} />
 
-        <Main>{children}</Main>
+        <Main><Outlet/></Main>
       </Box>
     </>
   );
