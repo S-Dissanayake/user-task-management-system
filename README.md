@@ -3,13 +3,13 @@ This is a User task management system. This system allow users to create, update
 
 Tech stack:
   
-      Front-end - React
-        
-      Backend - Node/Express.js  
-      
-      DataBase - MySql  
-      
-      Front-end Testing - Vitest with React testing library
+  Front-end - React
+    
+  Backend - Node/Express.js  
+  
+  DataBase - MySql  
+  
+  Front-end Testing - [Vitest](https://vitest.dev/) with [React testing library](https://testing-library.com/)
 
 # Setup Guide
 01. clone the repository (or download as Zip file)
@@ -48,16 +48,16 @@ Tech stack:
 ![screencapture-localhost-5173-dashboard-2024-04-07-13_32_21](https://github.com/S-Dissanayake/user-task-management-system/assets/89515541/e99776df-0a36-49ce-ab76-92dd8499f913)
 
 # Add new task Form (Modal)
-user can create new task, Status fiels is desabled for New tasks, and it set as new states.
+user can create new task, Status files is disabled for New tasks, and it set as new states.
 ![image](https://github.com/S-Dissanayake/user-task-management-system/assets/89515541/297b6332-8656-4381-8932-4e16dab77371)
 
 # Task List
 task list table component has 4 column, which are Task Title, Priority, Status and Actions.
-User can view, Edit and Delete by clicking relevent action buttons. 
+User can view, Edit and Delete by clicking relevant action buttons. 
 ![image](https://github.com/S-Dissanayake/user-task-management-system/assets/89515541/df263f31-f8b8-4214-b2c6-50949728fe9b)
 
 # Task View Mode
-User can view only. input fields are desabled on view mode.
+User can view only. input fields are disabled on view mode.
 ![image](https://github.com/S-Dissanayake/user-task-management-system/assets/89515541/4ad95a7e-3d02-4824-a4ee-0b5de024af24)
 
 # Task Edit Mode
