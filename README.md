@@ -1,8 +1,8 @@
 # User task management system
 This is a User task management system. This system allow users to create, update, and view and delete tasks. 
 
-Tech stack:
-  
+# Tech stack:
+    
   Front-end - React
     
   Backend - Node/Express.js  
