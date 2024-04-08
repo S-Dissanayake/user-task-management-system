@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 require("dotenv").config();
 
-
+    // function for validate the jwt token
     function verifyToken(req,res,next){
         const bearerHeader=req.headers["authorization"];
         if(typeof bearerHeader!=='undefined'){
